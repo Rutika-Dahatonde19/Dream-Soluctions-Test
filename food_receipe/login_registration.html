@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    
+    <!-- Bootstrap CSS (link it from a CDN or include it in your project) -->
+    <!-- Replace the href with the correct path or URL for Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Your existing style.css file (if any) -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Custom Styles for Login and Registration Forms */
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .login-form,
+        .registration-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design for Small Devices */
+        @media (max-width: 576px) {
+            .col-md-6 {
+                margin-top: 20px;
+            }
+        }
+    </style>
+
+
+<!-- Your JavaScript function for handling registration and login -->
+<script>
+     const baseUrl = 'http://localhost:3000';
+    // Show login form and hide registration form
+    function showLoginForm() {
+        document.querySelector('.login-form').style.display = 'block';
+        document.querySelector('.registration-form').style.display = 'none';
+    }
+
+    // Show registration form and hide login form
+    function showRegistrationForm() {
+        document.querySelector('.login-form').style.display = 'none';
+        document.querySelector('.registration-form').style.display = 'block';
+    }
+
+    async function registerUser() {
+        const regUsername = document.getElementById('reg_username').value;
+        const regMobileNumber = document.getElementById('reg_mobile_number').value;
+        const regEmail = document.getElementById('reg_email').value;
+        const regPassword = document.getElementById('reg_password').value;
+
+        try {
+            const response = await fetch(`${baseUrl}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: regUsername, mobile_number: regMobileNumber, email: regEmail, password: regPassword }),
+            });
+
+            if (response.ok) {
+                alert('Registration successful!');
+                // Redirect to index.html after successful registration
+                window.location.href = 'index.html';
+            } else {
+                alert('Registration failed. Please check your input and try again.');
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+            alert('Error during registration. Please try again later.');
+        }
+    }
+
+    async function loginUser() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch(`${baseUrl}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                alert('Login successful!');
+                // Redirect to index.html after successful login
+                window.location.href = 'index.html';
+            } else {
+                alert('Login failed. Invalid username or password.');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            alert('Error during login. Please try again later.');
+        }
+    }
+
+    // Show login form initially
+    showLoginForm();
+</script>
+
+
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Login Form -->
+            <div class="col-md-6">
+                <div class="login-form">
+                    <h2>Login</h2>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required><br>
+                    <button onclick="loginUser()">Login</button>
+                    <p>Don't have an account? <a href="#" onclick="showRegistrationForm()">Register here</a></p>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="col-md-6">
+                <div class="registration-form">
+                    <h2>Register</h2>
+                    <label for="reg_username">Username:</label>
+                    <input type="text" id="reg_username" name="reg_username" required><br>
+                    <label for="reg_mobile_number">Mobile Number:</label>
+                    <input type="text" id="reg_mobile_number" name="reg_mobile_number" required><br>
+                    <label for="reg_email">Email:</label>
+                    <input type="email" id="reg_email" name="reg_email" required><br>
+                    <label for="reg_password">Password:</label>
+                    <input type="password" id="reg_password" name="reg_password" required><br>
+                    <button onclick="registerUser()">Register</button>
+                    <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (link it from a CDN or include it in your project) -->
+    <!-- Replace the src with the correct path or URL for Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Your JavaScript function for handling registration and login -->
+    <script>
+
+        // Show login form and hide registration form
+        function showLoginForm() {
+            document.querySelector('.login-form').style.display = 'block';
+            document.querySelector('.registration-form').style.display = 'none';
+        }
+
+        // Show registration form and hide login form
+        function showRegistrationForm() {
+            document.querySelector('.login-form').style.display = 'none';
+            document.querySelector('.registration-form').style.display = 'block';
+        }
+
+        async function registerUser() {
+            const regUsername = document.getElementById('reg_username').value;
+            const regMobileNumber = document.getElementById('reg_mobile_number').value;
+            const regEmail = document.getElementById('reg_email').value;
+            const regPassword = document.getElementById('reg_password').value;
+
+            try {
+                const response = await fetch(`${baseUrl}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username: regUsername, mobile_number: regMobileNumber, email: regEmail, password: regPassword }),
+                });
+
+                if (response.ok) {
+                    alert('Registration successful!');
+                } else {
+                    alert('Registration failed. Please check your input and try again.');
+                }
+            } catch (error) {
+                console.error('Error during registration:', error);
+                alert('Error during registration. Please try again later.');
+            }
+        }
+
+        async function loginUser() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch(`${baseUrl}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                if (response.ok) {
+                    alert('Login successful!');
+                } else {
+                    alert('Login failed. Invalid username or password.');
+                }
+            } catch (error) {
+                console.error('Error during login:', error);
+                alert('Error during login. Please try again later.');
+            }
+        }
+
+        // Show login form initially
+        showLoginForm();
+    </script>
+</body>
+</html>
